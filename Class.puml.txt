@@ -1,0 +1,81 @@
+@startuml Banking_Management_System
+
+class Account {
+    - accountNumber: String
+    - balance: Double
+    --
+    + createAccount()
+    + depositMoney()
+    + withdrawMoney()
+    + viewBalance()
+    + transferMoney()
+}
+
+class Customer {
+    - customerId: String
+    - fullName: String
+    --
+    + authenticateLogin()
+    + createAccount()
+    + requestForLoan()
+    + depositMoney()
+    + viewTransaction()
+    + applyForLoan()
+}
+
+class Transaction {
+    - transactionId: String
+    - amount: Double
+    --
+    + recordTransaction()
+    + viewTransaction()
+    + validateTransaction()
+    - getTransactionDetails()
+}
+
+class Loan {
+    - loanId: String
+    - principalAmount: Double
+    --
+    + requestLoan()
+    + calculateInterest()
+    + approveLoan()
+    + setLoanTerms()
+    + setLoanTypes()
+    - viewLoanDetails()
+}
+
+class Employee {
+    - employeeId: String
+    - role: String
+    --
+    + authenticateUser()
+    + processTransaction()
+    + generateReport()
+    - verifyCustomer()
+}
+
+class Manager {
+    - managerId: String
+    - managedBranch: String
+    --
+    + approveLoan()
+    + authenticateUser()
+    + manageEmployees()
+    + generateReports()
+    - reviewLoanRequest()
+    - systemMaintenance()
+}
+
+' Relationships with Multiplicity
+
+Customer "1" -- "*" Account : has
+Account "1" -- "*" Transaction : contains
+Customer "1" -- "*" Loan : applies
+Loan "*" -- "1" Manager : reviewed
+Employee "*" -- "1" Manager : manages
+Employee "1" -- "*" Transaction : processes
+Account "1" -- "*" Employee : serviced
+Transaction "*" -- "1" Customer : belongs
+
+@enduml
