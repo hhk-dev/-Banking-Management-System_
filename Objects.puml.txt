@@ -1,0 +1,55 @@
+@startuml Banking_Management_System_Objects
+
+object customer1 {
+    customerId = "CUST001"
+    fullName = "Rajesh Kumar"
+    email = "rajesh@email.com"
+    phoneNumber = "9876543210"
+}
+
+object account1 {
+    accountNumber = "ACC001"
+    accountType = "Savings"
+    balance = "50000"
+    currency = "INR"
+}
+
+object transaction1 {
+    transactionId = "TXN001"
+    transactionType = "Credit"
+    amount = "5000"
+    status = "Success"
+}
+
+object loan1 {
+    loanId = "LOAN001"
+    loanType = "Personal"
+    principalAmount = "200000"
+    interestRate = "10.5"
+    loanStatus = "Approved"
+}
+
+object employee1 {
+    employeeId = "EMP001"
+    employeeName = "Amit Patel"
+    role = "Teller"
+    department = "Operations"
+}
+
+object manager1 {
+    managerId = "MGR001"
+    managerName = "Vikram Singh"
+    managedBranch = "Delhi"
+    department = "Management"
+}
+
+' Relationships between objects
+
+customer1 -- account1 : has
+customer1 -- loan1 : applies for
+account1 -- transaction1 : contains
+employee1 -- transaction1 : processes
+employee1 -- manager1 : reports to
+manager1 -- loan1 : approves
+
+@enduml
