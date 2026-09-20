@@ -1,11 +1,11 @@
 LLD - BANKING MANAGEMENT SYSTEM
 
-Group Members :
-a) Bavaliya Rudra (20251501040)
-b) Harsh Kanzariya (20251501086)
-c) Rushi Patel (20251501130)
-d) Bhakti Bhuva (20251501041)
-e) Nirja Paghadal (20251501119)
+Group Members:
+* Bavaliya Rudra (20251501040)
+* Harsh Kanzariya (20251501086)
+* Rushi Patel (20251501130)
+* Bhakti Bhuva (20251501041)
+* Nirja Paghadal (20251501119)
 <br>
 ● Current Banking System faces numerous of challenges:
 1) Loan Processing and account creation procedures are very
