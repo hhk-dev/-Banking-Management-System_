@@ -6,7 +6,7 @@ b) Harsh Kanzariya (20251501086)
 c) Rushi Patel (20251501130)
 d) Bhakti Bhuva (20251501041)
 e) Nirja Paghadal (20251501119)
-
+<br>
 ● Current Banking System faces numerous of challenges:
 1) Loan Processing and account creation procedures are very
 prolonged, it requires multiple bank visits.
