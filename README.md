@@ -1,9 +1,59 @@
-A bank user generally expects smooth services and experiences from the bank.
-But the bank service providers sometimes failed to do so which might disappoint the users.
-It may be because of the human errors occurred. 
-Some of these includes slow loan process, slow server which might be a problem while doing transactions. 
-Also, while creating a account there will be need of checking the user details also which are correct or not.
-While transaction, is there the balance enough for doing the transactions, also is the receiver's details are correct or not.
-Also, while tacking loans from bank, the user needs to be verified, does the user have that much income with which he can pay the loan back.
-These all are the problems for the topic banking management.
-To overcome this problems, there is a need of a platform which works smoothly and efficiently, which includes transfer of money on that platform,checking bank balance,managing our account, to keep an eye on our EMI and loans there should be a different section on the platform which allows user to access all these,which might be easy for users to do so instead to going to bank which might consumes time for all this.
+LLD - BANKING MANAGEMENT SYSTEM
+
+Group Members :
+a) Bavaliya Rudra (20251501040)
+b) Harsh Kanzariya (20251501086)
+c) Rushi Patel (20251501130)
+d) Bhakti Bhuva (20251501041)
+e) Nirja Paghadal (20251501119)
+
+● Current Banking System faces numerous of challenges:
+1) Loan Processing and account creation procedures are very
+prolonged, it requires multiple bank visits.
+2) Customers cannot manage multiple bank account, view
+transaction history or maintain EMI status from a single
+platform.
+3) Customers have to visit physical branches for routine
+operations like balance checks, money transfers, and for loan
+application.
+
+● Objective of our Project: Developing a comprehensive Banking
+Management System that provides a unified, secure digital
+platform enabling customers to perform banking operations
+(money transfer, balance inquiry, loan applications, transaction
+history, and interest calculations) efficiently and conveniently
+without visiting physical branches.
+
+● Solving the Problems that are being faced:
+1) For Account Creation:
+● Fill Personal details, Select Account Type, System will generate an account number
+(“ACC+1000+NUMBER OF ACCOUNT”)
+
+● For Loan Processing: AI Based Checking System Checks –
+Account is active, minimum balance, pending loans, Income sufficient?
+
+2) Multiple accounts like Savings, Current and Salary would be
+managed by filtering them with “AccountType”,“DateRange”and “Amount”– By Creating Database.
+
+4) 3rd problem would be resolved by Biometric login: Face
+recognition because it is faster than OTP System and also
+More secure because it is unique for each person
+
+● 6 Main Classes of our Project:
+ACCOUNT, CUSTOMER, TRANSACTION, LOAN, EMPLOYEE
+AND MANAGER.
+1) Account -> Deposit Money, Withdraw Money and View Balance.
+2) Customer -> Apply for loan, calculate Interest
+3) Transaction -> record Transaction, validate Transaction
+4) Loan -> Loan Types, calculate interest
+5) Employee -> verify customer, record transaction
+6) Manager -> Approve loan, review loan request
+●
+
+Progress Report till now…………
+
+Week 1: Drawing USE-CASE, UML DIAGRAMS
+Week 2: Drawing CRC DIAGRAMS, Object Diagrams
+Week 3: Implementing Inheritance, extend, include concept in Account, Customer andTransaction
+Week 4: Polymorphism - Method Overriding, Method Overloading In Customer, Account and Transaction
+Week 5: Implementation of Different Types of Variables -> Static,Instance and Local Variables
