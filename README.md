@@ -53,8 +53,11 @@ AND MANAGER.
 Progress Report till now…………
 
 Week 1: Drawing USE-CASE, UML DIAGRAMS
-<\br>
+<br>
 Week 2: Drawing CRC DIAGRAMS, Object Diagrams
+<br>
 Week 3: Implementing Inheritance, extend, include concept in Account, Customer andTransaction
+<br>
 Week 4: Polymorphism - Method Overriding, Method Overloading In Customer, Account and Transaction
+<br>
 Week 5: Implementation of Different Types of Variables -> Static,Instance and Local Variables
