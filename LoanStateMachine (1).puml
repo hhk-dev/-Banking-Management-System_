@@ -1,0 +1,33 @@
+@startuml Loan_State_Machine
+
+title Loan State Machine (from Loan.java, LoanOfficer.java, Bank.java)
+
+[*] --> PENDING : customer.requestLoanForAccount()\n[new Loan, status = "PENDING"]
+
+PENDING --> APPROVED : bank.reviewLoan(approve = true)\n-> LoanOfficer.review()\n[verifyCustomer() is true]\n/ loan.approve()
+
+PENDING --> REJECTED : bank.reviewLoan(approve = false)\n-> LoanOfficer.review()\n/ loan.reject()
+
+PENDING --> REJECTED : bank.reviewLoan(approve = true)\n[verifyCustomer() is false]\n/ loan.reject()
+
+APPROVED --> CLOSED : repay loan fully\n(PLANNED)
+
+REJECTED --> [*]
+CLOSED --> [*]
+
+note right of PENDING
+  verifyCustomer() passes when:
+  - customer has at least 1 account
+  - total balance >= 500
+  Only a LoanOfficer can review
+  (Bank.requireRole check).
+end note
+
+note bottom of APPROVED
+  Calling review() on a loan that is
+  not PENDING throws IllegalStateException,
+  so APPROVED and REJECTED are final
+  for review purposes.
+end note
+
+@enduml

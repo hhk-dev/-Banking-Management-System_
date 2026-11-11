@@ -1,0 +1,28 @@
+@startuml Transaction_State_Machine
+
+title Transaction State Machine (from Customer.java, Transaction.java, Bank.java)
+
+[*] --> Requested : customer.deposit() / withdraw() / transfer()
+
+state "Validating" as Validating
+Requested --> Validating : Transaction.validate(account, type, amount)
+
+Validating --> COMPLETED : [amount > 0 and\nbalance - amount >= minimumBalance]\n/ account.withdraw() or deposit()\n/ log(..., "COMPLETED")
+
+Validating --> FAILED : [amount <= 0 or\nbalance would drop below minimum]\n/ log(..., "FAILED")\n/ throw IllegalStateException
+
+COMPLETED --> [*]
+FAILED --> [*]
+
+note bottom of COMPLETED
+  Transaction is immutable.
+  Status is fixed when it is created
+  (withStatus() makes a new copy).
+end note
+
+note right of FAILED
+  Bank.transfer(): if the deposit to the
+  receiver fails, the sender is refunded.
+end note
+
+@enduml
