@@ -25,6 +25,7 @@ history, and interest calculations) efficiently and conveniently
 without visiting physical branches.
 
 ● Solving the Problems that are being faced:
+
 1) For Account Creation:
 ● Fill Personal details, Select Account Type, System will generate an account number
 (“ACC+1000+NUMBER OF ACCOUNT”)
