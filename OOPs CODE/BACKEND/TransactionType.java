@@ -1,0 +1,5 @@
+package BankSystem;
+
+public enum TransactionType {
+    DEPOSIT, WITHDRAW, TRANSFER_OUT, TRANSFER_IN, INTEREST, LOAN_DISBURSEMENT, LOAN_REPAYMENT
+}
