@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passbook · Bank System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- CUSTOMER SIGN IN -->
+<main id="login-view" class="login-wrap">
+    <section class="auth-card">
+        <div class="logo">₹</div>
+        <p class="eyebrow">Passbook · Customer</p>
+        <h1>Sign in</h1>
+        <p class="muted">Account holders</p>
+
+        <form id="login-form" class="auth-form">
+            <label>User ID
+                <input id="login-user" required autocomplete="username" placeholder="cust01">
+            </label>
+            <label>Password
+                <input id="login-password" type="password" required autocomplete="current-password" placeholder="Your password">
+            </label>
+            <button type="submit">Sign in</button>
+        </form>
+        <p id="login-message" class="message"></p>
+
+        <div class="divider"><span>New here</span></div>
+        <button id="show-signup" class="ghost" type="button">Open a login</button>
+    </section>
+</main>
+
+<!-- SIGN UP -->
+<main id="signup-view" class="login-wrap" hidden>
+    <section class="auth-card">
+        <div class="logo">₹</div>
+        <p class="eyebrow">Passbook · New</p>
+        <h1>Open a login</h1>
+        <p class="muted">Choose a user ID</p>
+
+        <form id="signup-form" class="auth-form">
+            <label>User ID
+                <input id="signup-user" required placeholder="cust02" autocomplete="off">
+            </label>
+            <label>Full name
+                <input id="signup-name" required placeholder="Ravi Kumar" autocomplete="name">
+            </label>
+            <label>Password (min. 6 characters)
+                <input id="signup-password" type="password" required minlength="6" autocomplete="new-password">
+            </label>
+            <label>Confirm password
+                <input id="signup-confirm" type="password" required minlength="6" autocomplete="new-password">
+            </label>
+            <button type="submit">Create login</button>
+        </form>
+        <p id="signup-message" class="message"></p>
+
+        <button id="show-login" class="ghost" type="button">Back to sign in</button>
+    </section>
+</main>
+
+<!-- CUSTOMER DASHBOARD -->
+<main id="dashboard" hidden>
+    <header class="topbar">
+        <div class="brand">
+            <div class="logo sm">₹</div>
+            <span class="wordmark">PASSBOOK<sup>'26</sup></span>
+        </div>
+        <nav class="subnav">
+            <a href="#s-accounts">Accounts</a>
+            <a href="#s-money">Money</a>
+            <a href="#s-loans">Loans</a>
+            <a href="#s-history">History</a>
+        </nav>
+        <div class="top-actions">
+            <button id="refresh-btn" class="ghost" type="button">Refresh</button>
+            <button id="logout-btn" class="ghost danger" type="button">Log out</button>
+        </div>
+    </header>
+
+    <div class="page">
+        <div class="page-head">
+            <p class="eyebrow">Customer account</p>
+            <h1 id="welcome"></h1>
+        </div>
+
+        <section class="ticket hero">
+            <div>
+                <p class="eyebrow">Total balance</p>
+                <p id="total-balance" class="hero-amount"></p>
+            </div>
+            <p class="hero-note">All accounts combined</p>
+        </section>
+
+        <p id="notice" class="notice" hidden></p>
+
+        <div class="grid">
+
+            <section class="ticket" id="s-accounts">
+                <h2>Accounts</h2>
+                <div id="accounts"></div>
+                <h3>Open a new account</h3>
+                <form id="open-account-form" class="stack">
+                    <select id="new-account-type">
+                        <option value="SAVINGS">Savings · min ₹500</option>
+                        <option value="CURRENT">Current · min ₹1000</option>
+                        <option value="SALARY">Salary · min ₹0</option>
+                    </select>
+                    <input id="new-account-amount" type="number" min="0" step="0.01" placeholder="Opening balance" required>
+                    <button type="submit">Open account</button>
+                </form>
+            </section>
+
+            <section class="ticket" id="s-money">
+                <h2>Deposit</h2>
+                <form id="deposit-form" class="stack">
+                    <select id="deposit-account" required></select>
+                    <input id="deposit-amount" type="number" min="0.01" step="0.01" placeholder="Amount" required>
+                    <button type="submit">Deposit</button>
+                </form>
+            </section>
+
+            <section class="ticket">
+                <h2>Withdraw</h2>
+                <form id="withdraw-form" class="stack">
+                    <select id="withdraw-account" required></select>
+                    <input id="withdraw-amount" type="number" min="0.01" step="0.01" placeholder="Amount" required>
+                    <button type="submit">Withdraw</button>
+                </form>
+            </section>
+
+            <section class="ticket">
+                <h2>Transfer</h2>
+                <form id="transfer-form" class="stack">
+                    <select id="transfer-from" required></select>
+                    <input id="transfer-to" placeholder="Destination account number" required>
+                    <input id="transfer-amount" type="number" min="0.01" step="0.01" placeholder="Amount" required>
+                    <button type="submit">Transfer</button>
+                </form>
+            </section>
+
+            <section class="ticket wide" id="s-loans">
+                <h2>My loans</h2>
+                <div id="loan-tabs" class="tabs">
+                    <button type="button" class="tab active" data-filter="ALL">All <span class="count">0</span></button>
+                    <button type="button" class="tab" data-filter="PENDING">Pending <span class="count">0</span></button>
+                    <button type="button" class="tab" data-filter="APPROVED">Approved <span class="count">0</span></button>
+                    <button type="button" class="tab" data-filter="CLOSED">Cleared <span class="count">0</span></button>
+                </div>
+                <div id="loans"></div>
+            </section>
+
+            <section class="ticket">
+                <h2>Request a loan</h2>
+                <form id="loan-form" class="stack">
+                    <select id="loan-account" required></select>
+                    <select id="loan-type">
+                        <option value="HOME">Home · 7.5% a year</option>
+                        <option value="PERSONAL">Personal · 12% a year</option>
+                        <option value="EDUCATION">Education · 9% a year</option>
+                    </select>
+                    <input id="loan-amount" type="number" min="1" step="0.01" placeholder="Amount needed" required>
+                    <input id="loan-months" type="number" min="1" placeholder="Months" required>
+                    <button type="submit">Send request</button>
+                </form>
+            </section>
+
+            <section class="ticket">
+                <h2>Repay a loan</h2>
+                <form id="repay-form" class="stack">
+                    <select id="repay-loan" required></select>
+                    <input id="repay-amount" type="number" min="0.01" step="0.01" placeholder="Amount to pay" required>
+                    <button type="submit">Pay</button>
+                    <p class="muted small">Repayment opens once a loan is approved.</p>
+                </form>
+            </section>
+
+            <section class="ticket wide" id="s-history">
+                <h2>Transactions</h2>
+                <div id="transactions"></div>
+            </section>
+
+        </div>
+    </div>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

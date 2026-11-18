@@ -1,0 +1,705 @@
+/* =========================================================
+   PASSBOOK: red page, cream tickets with notched edges
+   ========================================================= */
+
+:root {
+    --red: #b3262a;
+    --paper: #f4efe6;
+    --paper-2: #ebe4d5;
+    --ink: #171311;
+    --muted: #6e675d;
+    --rule: #b8b0a0;
+    --accent: #d92a22;
+    --green: #1d6146;
+    --amber: #8a5a00;
+    --display: "Space Mono", "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    color-scheme: light;
+}
+
+[hidden] { display: none !important; }
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--red);
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+#dashboard,
+#staff-dashboard {
+    counter-reset: sec;
+}
+
+/* ---------- Ticket: cream card with notched edges ---------- */
+
+.ticket,
+.auth-card {
+    --n: 5px;
+    position: relative;
+    padding: 26px 26px 24px;
+    background-color: var(--paper);
+    background-image:
+            radial-gradient(circle at 50% 0, var(--red) var(--n), transparent calc(var(--n) + 0.5px)),
+            radial-gradient(circle at 50% 100%, var(--red) var(--n), transparent calc(var(--n) + 0.5px)),
+            radial-gradient(circle at 0 50%, var(--red) var(--n), transparent calc(var(--n) + 0.5px)),
+            radial-gradient(circle at 100% 50%, var(--red) var(--n), transparent calc(var(--n) + 0.5px));
+    background-size: 14px var(--n), 14px var(--n), var(--n) 14px, var(--n) 14px;
+    background-position: 0 0, 0 100%, 0 0, 100% 0;
+    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.22);
+}
+
+.ticket { counter-increment: sec; }
+
+/* ---------- Layout ---------- */
+
+.page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px 90px;
+}
+
+.login-wrap {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 34px 30px;
+    align-items: start;
+}
+
+.wide { grid-column: 1 / -1; }
+
+section[id] { scroll-margin-top: 90px; }
+
+.stack {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* ---------- Top bar ---------- */
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    padding: 12px 24px;
+    background: var(--paper);
+    border-bottom: 3px solid var(--ink);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.wordmark {
+    font-family: var(--display);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.wordmark sup {
+    margin-left: 2px;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    font-weight: 500;
+    color: var(--accent);
+}
+
+.subnav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 22px;
+}
+
+.subnav a {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+}
+
+.subnav a::before {
+    content: "■";
+    margin-right: 6px;
+    font-size: 0.55rem;
+    color: var(--accent);
+    vertical-align: 0.15em;
+}
+
+.subnav a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.top-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.top-actions button {
+    width: auto;
+    margin-top: 0;
+    padding: 8px 12px;
+    font-size: 0.68rem;
+}
+
+/* ---------- Logo mark ---------- */
+
+.logo {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 18px;
+    display: grid;
+    place-items: center;
+    background: var(--accent);
+    color: var(--paper);
+    font-family: var(--display);
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.logo.sm {
+    width: 34px;
+    height: 34px;
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* ---------- Page heading (sits on the red background) ---------- */
+
+.page-head { padding: 34px 0 0; }
+
+.page-head h1 {
+    margin: 0;
+    font-family: var(--display);
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: var(--paper);
+}
+
+/* ---------- Type ---------- */
+
+.eyebrow {
+    margin: 0 0 8px;
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.page-head .eyebrow {
+    color: var(--paper);
+    opacity: 0.8;
+}
+
+.muted { color: var(--muted); }
+.small { font-size: 0.78rem; }
+
+/* Section titles get a red number from the counter */
+.ticket h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin: 0 0 18px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--ink);
+    font-family: var(--display);
+    font-size: 1.02rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.ticket h2::before {
+    content: counter(sec, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--accent);
+}
+
+.ticket h3 {
+    margin: 24px 0 12px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--rule);
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+/* ---------- Total balance ticket (black, not numbered) ---------- */
+
+.hero {
+    counter-increment: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 26px 0 30px;
+    background-color: var(--ink);
+    color: var(--paper);
+}
+
+.hero .eyebrow {
+    color: var(--paper);
+    opacity: 0.7;
+}
+
+.hero-amount {
+    margin: 0;
+    font-family: var(--display);
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+}
+
+.hero-note {
+    margin: 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+/* ---------- Toast notice at the bottom of the screen ---------- */
+
+.notice {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%);
+    z-index: 50;
+    width: max-content;
+    max-width: calc(100% - 32px);
+    margin: 0;
+    padding: 12px 18px;
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--ink);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.notice::before {
+    content: "■ ";
+    color: var(--green);
+}
+
+.notice.error::before { color: var(--accent); }
+
+/* ---------- Accounts ---------- */
+
+.account {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--rule);
+}
+
+.account:last-child { border-bottom: 0; }
+
+.account strong {
+    display: block;
+    font-family: var(--display);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.account .small { word-break: break-all; }
+
+.amount {
+    font-family: var(--display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Forms: boxed fields like a printed form ---------- */
+
+label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+input,
+select {
+    width: 100%;
+    margin: 0;
+    padding: 11px 12px;
+    border: 2px solid var(--ink);
+    border-radius: 0;
+    background: #fffdf8;
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 0.92rem;
+    letter-spacing: normal;
+    text-transform: none;
+}
+
+input::placeholder { color: #a59e92; }
+
+input:focus,
+select:focus {
+    outline: none;
+    background: #fff;
+    box-shadow: 4px 4px 0 var(--accent);
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 36px;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0h12L6 8z' fill='%23171311'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+}
+
+option {
+    background: var(--paper);
+    color: var(--ink);
+}
+
+/* ---------- Buttons: square, with brackets ---------- */
+
+button {
+    width: 100%;
+    margin-top: 4px;
+    padding: 12px 16px;
+    border: 2px solid var(--ink);
+    border-radius: 0;
+    background: var(--accent);
+    color: var(--paper);
+    font-family: var(--display);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    box-shadow: 4px 4px 0 var(--ink);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, box-shadow 0.15s, transform 0.08s;
+}
+
+button::before { content: "[ "; }
+button::after { content: " ]"; }
+
+button:hover {
+    background: var(--ink);
+    color: var(--paper);
+}
+
+button:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--ink);
+}
+
+button:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 3px;
+}
+
+button:disabled {
+    opacity: 0.45;
+    pointer-events: none;
+    box-shadow: none;
+}
+
+button.ghost {
+    background: transparent;
+    color: var(--ink);
+}
+
+button.ghost:hover {
+    background: var(--ink);
+    color: var(--paper);
+}
+
+button.ghost.danger:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--paper);
+}
+
+/* ---------- Filter tabs: boxed, the active one is inked ---------- */
+
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.tab {
+    width: auto;
+    margin: 0;
+    padding: 7px 12px;
+    border: 2px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    box-shadow: none;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.tab::before,
+.tab::after { content: none; }
+
+.tab:hover {
+    background: var(--paper-2);
+    color: var(--ink);
+}
+
+.tab.active,
+.tab.active:hover {
+    background: var(--ink);
+    color: var(--paper);
+}
+
+.tab .count {
+    margin-left: 6px;
+    padding: 0 6px;
+    background: var(--accent);
+    color: var(--paper);
+    font-size: 0.66rem;
+}
+
+.tab.active .count {
+    background: var(--paper);
+    color: var(--ink);
+}
+
+/* ---------- Tables: dashed rules, like a ticket stub ---------- */
+
+#loans,
+#transactions,
+#staff-loans {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+}
+
+th {
+    padding: 8px 10px;
+    border-bottom: 2px solid var(--ink);
+    font-size: 0.64rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-align: left;
+    white-space: nowrap;
+    color: var(--muted);
+}
+
+td {
+    padding: 11px 10px;
+    border-bottom: 1px dashed var(--rule);
+    text-align: left;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+tbody tr:last-child td { border-bottom: 0; }
+
+tbody tr:hover td { background: var(--paper-2); }
+
+.credit { color: var(--green); font-weight: 600; }
+.debit { color: var(--accent); font-weight: 600; }
+.failed {
+    color: var(--muted);
+    text-decoration: line-through;
+}
+
+/* ---------- Boxed status tags ---------- */
+
+.badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border: 1.5px solid currentColor;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.badge.COMPLETED,
+.badge.APPROVED { color: var(--green); }
+
+.badge.FAILED,
+.badge.REJECTED { color: var(--accent); }
+
+.badge.PENDING { color: var(--amber); }
+
+.badge.CLOSED {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+}
+
+/* ---------- Loan officer actions ---------- */
+
+.row-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.row-actions button {
+    width: auto;
+    margin: 0;
+    padding: 6px 10px;
+    font-size: 0.64rem;
+    box-shadow: 3px 3px 0 var(--ink);
+}
+
+.row-actions button.reject {
+    background: transparent;
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 3px 3px 0 var(--accent);
+}
+
+.row-actions button.reject:hover {
+    background: var(--accent);
+    color: var(--paper);
+}
+
+/* ---------- Login and sign-up card ---------- */
+
+.auth-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 42px 34px 34px;
+    text-align: center;
+}
+
+.auth-card h1 {
+    margin: 0 0 6px;
+    font-family: var(--display);
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1.05;
+    text-transform: uppercase;
+    color: var(--ink);
+}
+
+.auth-card .eyebrow { color: var(--accent); }
+
+.auth-card .muted {
+    margin: 0 0 28px;
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.auth-form { text-align: left; }
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 26px 0 16px;
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    border-top: 2px dashed var(--rule);
+}
+
+.message {
+    min-height: 1.3em;
+    margin: 14px 0 0;
+    font-size: 0.84rem;
+    text-align: center;
+    color: var(--accent);
+}
+
+.message.success { color: var(--green); }
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 640px) {
+    .page { padding: 0 14px 80px; }
+    .topbar { padding: 12px 14px; }
+    .ticket { padding: 22px 18px 20px; }
+    .auth-card { padding: 36px 24px 28px; }
+    .grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+}/* ---------- Transaction list: a scrollable box that keeps the header visible ---------- */
+.tx-count {
+    margin: 0 0 10px;
+    letter-spacing: 0.06em;
+}
+
+.tx-scroll {
+    max-height: 460px;
+    overflow: auto;
+    border: 2px solid var(--ink);
+    background: #fffdf8;
+}
+
+.tx-scroll th {
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    z-index: 1;
+}
